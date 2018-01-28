@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>摄影圈-后台管理系统</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/style-responsive.css" rel="stylesheet">
+</head>
+
+<body>
+<div>
+    <div class="container">
+        <div class="form-login">
+            <h2 class="form-login-heading">后台管理系统</h2>
+            <div class="login-wrap">
+                <label style="text-align: center">
+                    管理员登录
+                </label>
+                <form >
+                <input id="dengluming" type="text" class="form-control" placeholder="User ID" autofocus/>
+                <br>
+                <input id="mima" type="password" class="form-control" placeholder="Password"/>
+                </form>
+                <button style="margin-top: 17px;" class="btn btn-theme btn-block" id="denglu"><i class="fa fa-lock"></i> 登录</button>
+                <hr>
+            </div>
+    </div>
+
+    </div>
+</div>
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.backstretch.min.js"></script>
+<script type="text/javascript">
+    $.backstretch("img/login-bg.jpg", {speed: 500});
+    //用ajax提交表单
+    $("#denglu").click(function(){
+        $.post("/doLogin",{
+            "dengluming" : $("#dengluming").val(),
+            "mima" : $("#mima").val()
+        },function(result){
+            if(result=="1"){
+                alert("管理员登录成功！进入后台管理页面")
+                window.location = "/index";
+            }else if(result=="-2"){
+                alert("没有该账号！");
+                window.location="/";
+            }else if(result=="-1"){
+                alert("密码不正确！");
+                window.location="/";
+            }else{
+                alert("未知错误！");
+                window.location="/";
+            }
+        })
+    });
+
+//    $.ajax({
+//        "url": "/showuserinfo?dengluming=" + dengluming,
+//        "type": "get",
+//        "success": function (result) {
+//            console.log(result[0]);
+//            //添加DOM
+//            $("#userinfotable").append($(htmlstring));
+//            $("#sex option[value='" + sexInfo + "']").attr("selected", true);
+//            $("#politicalStatus option[value='" + plos + "']").attr("selected", true);
+//            $("#department option[value='" + depa + "']").attr("selected", true);
+//        }
+//    });
+</script>
+
+
+</body>
+</html>
